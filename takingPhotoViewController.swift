@@ -42,7 +42,7 @@ class takingPhotoViewController: UIViewController {
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        codeFromCan = nil
+        //codeFromCan = nil
         dismiss(animated: true, completion: nil)
     }
     

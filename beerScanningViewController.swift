@@ -35,9 +35,16 @@ class beerScanningViewController: UIViewController, takingPhotoViewControllerDel
     
     var currentCode : String? {
         didSet {
-            Detection.text = barcodeLookup[currentCode!]
-            beerImage.image = UIImage(named: Detection.text! + ".png")
-            comment.text = "Drink successfully added!"
+            if (barcodeLookup[currentCode!] != nil) {
+                Detection.text = barcodeLookup[currentCode!]
+                beerImage.image = UIImage(named: Detection.text! + ".png")
+                comment.text = "Drink successfully added!"
+            }
+            else {
+                Detection.text = "Drink not found"
+                beerImage.image = nil
+                comment.text = "Scan again!"
+            }
         }
     }
     

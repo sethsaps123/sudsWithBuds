@@ -35,10 +35,13 @@ class beerScanningViewController: UIViewController, takingPhotoViewControllerDel
     
     var currentCode : String? {
         didSet {
-            if (barcodeLookup[currentCode!] != nil) {
-                Detection.text = barcodeLookup[currentCode!]
-                beerImage.image = UIImage(named: Detection.text! + ".png")
+            if let name = barcodeLookup[currentCode!] {
+                Detection.text = name
+                beerImage.image = UIImage(named: name + ".png")
                 comment.text = "Drink successfully added!"
+                
+                Singleton.sharedInstance.newPost = name
+                Singleton.sharedInstance.postAdded = true
             }
             else {
                 Detection.text = "Drink not found"
@@ -59,7 +62,8 @@ class beerScanningViewController: UIViewController, takingPhotoViewControllerDel
         "049000001327" : "Sprite",
         "012000809965" : "Mountain Dew",
         "049000429183" : "Diet Coke",
-        "049000608779" : "Coca Cola"
+        "049000608779" : "Coca Cola",
+        "0018200969089" : "Shock Top"
     ]
     
 

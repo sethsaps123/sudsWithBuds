@@ -8,6 +8,12 @@
 
 import UIKit
 
+class Singleton: NSObject {
+    static let sharedInstance = Singleton()
+    var newPost : String?
+    var postAdded = false
+}
+
 class friendList: UITableViewController {
     
     override func viewDidLoad() {
@@ -15,7 +21,40 @@ class friendList: UITableViewController {
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "bubbles2.png"))
 
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if Singleton.sharedInstance.postAdded {
+        drinks.insert(Singleton.sharedInstance.newPost!, at: 0)
+            friends.insert("Charlie Mc'Dennis", at: 0)
+            let date = Date()
+            let calender = Calendar.current
+            let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+            let hour = components.hour!
+            let minutes = components.minute!
+            var time : String?
+            if (hour < 12) {
+                time = String(hour) + ":" + String(minutes) + "am"
+            }
+            else if (hour > 12) {
+                time = String(hour - 12) + ":" + String(minutes) + "pm"
+            }
+            else if (hour == 12){
+                time = String(hour) + ":" + String(minutes) + "pm"
+            }
+            else if (hour == 24) {
+                time = String(hour - 12) + ":" + String(minutes) + "am"
+            }
+            else if (hour >= 24) {
+                time = String(hour) + ":" + String(minutes) + "am"
+            }
+            times.insert(time!, at: 0)
+            Singleton.sharedInstance.postAdded = false
+            self.tableView.reloadData()
+            
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -30,7 +69,7 @@ class friendList: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return friends.count
     }
 
     

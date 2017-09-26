@@ -15,7 +15,7 @@
 -(void)switchon:(int)on {
     int mainsock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in server_address;
-    struct hostent *host = gethostbyname("35.0.58.28"); //set host of our server
+    struct hostent *host = gethostbyname("35.0.31.117"); //set host of our server
     memcpy (&server_address.sin_addr.s_addr, host->h_addr, host->h_length); //set the host and length
     server_address.sin_family = AF_INET;
     server_address.sin_port = htons (50007); //set port of our server

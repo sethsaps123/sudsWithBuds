@@ -25,45 +25,23 @@ class launchBeerViewController: UIViewController {
     var launchConnect : piConnect = piConnect()
     
     @IBAction func launchBeerButton(_ sender: UIButton) {
-        launchConnect.switchon(1)
-        launchConnect.switchon(2)
+        sendLaunch()
     }
     @IBAction func end(_ sender: UIButton) {
-        launchConnect.switchon(3)
+        sendEnd()
     }
     
-    //@IBOutlet weak var Beer: UIButton!
-    
-    
-    
-    
-    /*
-    func switchon(_ on: Bool) {
-        let mainsock: Int = Int(socket(AF_INET, SOCK_STREAM, 0))
-        var server_address: sockaddr_in
-        let host: hostent? = gethostbyname("35.0.62.171")
-        //set host of our server
-        memcpy(server_address.sin_addr.s_addr, host?.h_addr, host?.h_length)
-        //set the host and length
-        server_address.sin_family = sa_family_t(AF_INET)
-        server_address.sin_port = htons(50007)
-        //set port of our server
-        if connect(mainsock, (server_address as? sockaddr), MemoryLayout<server_address>.size) < 0 {
-            print("error connecting")
+    func sendEnd() {
+        DispatchQueue.global().async {
+            self.launchConnect.switchon(3)
         }
-        var returnval = "off"
-        if on {
-            returnval = "on"
-        }
-        
-        let w: Int = write(Int32(mainsock), returnval.utf8CString, strlen(returnval.utf8CString))
-    
-        if w < 0 {
-            print("error connecting")
-        }
-        close(Int32(mainsock))
     }
- */
+    func sendLaunch() {
+        DispatchQueue.global().async {
+            self.launchConnect.switchon(1)
+            self.launchConnect.switchon(2)
+        }
+    }
 
     /*
     // MARK: - Navigation
